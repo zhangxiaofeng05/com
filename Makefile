@@ -6,7 +6,14 @@ help: Makefile
 	@echo
 	@sed -n 's/^##//p' $< | column -t -s ':' |  sed -e 's/^/ /'
 
-## lint: run golangci-lint
+## godoc: run godoc.
+# maybe you need install godoc. $ go install golang.org/x/tools/cmd/godoc@latest
+godoc:
+	@echo "http://localhost:6060"
+	godoc -http=:6060
+
+## lint: run golangci-lint.
+# maybe you need install golangci-lint. $ go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 lint:
 	golangci-lint run ./...
 
