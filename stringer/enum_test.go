@@ -1,30 +1,37 @@
 package stringer
 
 import (
+	"fmt"
 	"testing"
 )
 
 func TestEnum_String(t *testing.T) {
-	tests := []struct {
-		enum    Enum
-		want    string
-		wantErr bool
+	var tests = []struct {
+		enum Enum
+		want string
 	}{
-		{1, "success", false},
-		{2, "fail", false},
-		{3, "unknow", false},
-		{4, "Enum(4)", false},
-		{5, "", true},
+		{1, "success"},
+		{2, "fail"},
+		{3, "unknow"},
+		{4, "Enum(4)"},
 	}
-	for i, tt := range tests {
-		result := tt.enum.String()
-		if result != tt.want {
-			if tt.wantErr {
-				t.Logf("case %d . result:%s want:%s", i, result, tt.want)
-				return
+
+	for _, tt := range tests {
+		testname := fmt.Sprintf("enum:%d", tt.enum)
+		t.Run(testname, func(t *testing.T) {
+			ans := tt.enum.String()
+			if ans != tt.want {
+				t.Errorf("got %s, want %s", ans, tt.want)
 			}
-			t.Errorf("case %d run fail. result:%s != want:%s", i, result, tt.want)
-			return
-		}
+		})
+
+	}
+}
+
+func BenchmarkEnum_String(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		Enum(1).String()
+		Enum(2).String()
+		Enum(3).String()
 	}
 }
