@@ -21,6 +21,10 @@ lint:
 test:
 	go test -race -coverprofile=coverage.txt -covermode=atomic ./...
 
+## all_test: run test(include bench)
+all_test:
+	go test -bench=. -v ./...
+
 ## mod_tidy: go mod tidy
 mod_tidy:
 	go mod tidy
