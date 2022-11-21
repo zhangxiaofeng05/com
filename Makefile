@@ -19,11 +19,11 @@ lint:
 
 ## test: run test. view result:$ go tool cover -html=coverage.txt
 test:
-	go test -race -coverprofile=coverage.txt -covermode=atomic ./...
+	go test -count=1 -race -coverprofile=coverage.txt -covermode=atomic ./...
 
 ## all_test: run test(include bench)
 all_test:
-	go test -bench=. -v ./...
+	go test -count=1 -bench=. -v ./...
 
 ## mod_tidy: go mod tidy
 mod_tidy:
