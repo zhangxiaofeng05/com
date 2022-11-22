@@ -17,13 +17,20 @@ godoc:
 lint:
 	golangci-lint run ./...
 
-## test: run test. view result:$ go tool cover -html=coverage.txt
+## test: run test. not cache
 test:
-	go test -count=1 -race -coverprofile=coverage.txt -covermode=atomic ./...
+	go test -count=1 -race -coverprofile=coverage.out -covermode=atomic ./...
 
-## all_test: run test(include bench)
+## view_test: view test coverage
+view_test:
+	go tool cover -html=coverage.out
+
+## all_test: run all test(include bench). not cache
 all_test:
 	go test -count=1 -bench=. -v ./...
+
+## all_generate: run all go generate
+	go generate ./...
 
 ## mod_tidy: go mod tidy
 mod_tidy:

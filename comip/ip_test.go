@@ -1,9 +1,12 @@
-package comip
+package comip_test
 
 import (
 	"errors"
+	"fmt"
 	"net"
 	"testing"
+
+	"github.com/zhangxiaofeng05/com/comip"
 )
 
 // externalIP only ipv4
@@ -46,7 +49,7 @@ func externalIP() (string, error) {
 }
 
 func TestGetOutboundIP(t *testing.T) {
-	outboundIP, err := GetOutboundIP()
+	got, err := comip.GetOutboundIP()
 	if err != nil {
 		t.Fatalf("GetOutboundIP err:%v", err)
 	}
@@ -54,13 +57,22 @@ func TestGetOutboundIP(t *testing.T) {
 	if err != nil {
 		t.Fatalf("externalIP err:%v", err)
 	}
-	if outboundIP.String() != ip {
-		t.Fatalf("got: %v, want: %v", outboundIP.String(), ip)
+	if got.String() != ip {
+		t.Fatalf("got: %v, want: %v", got.String(), ip)
 	}
 }
 
+func ExampleGetOutboundIP() {
+	ip, err := comip.GetOutboundIP()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(ip.String())
+	// 192.168.31.147
+}
+
 func TestGetLocalIP(t *testing.T) {
-	localIP, err := GetLocalIP()
+	got, err := comip.GetLocalIP()
 	if err != nil {
 		t.Fatalf("GetLocalIP err:%v", err)
 	}
@@ -70,7 +82,16 @@ func TestGetLocalIP(t *testing.T) {
 		t.Fatalf("externalIP err:%v", err)
 	}
 
-	if localIP != ip {
-		t.Fatalf("got: %v, want: %v", localIP, ip)
+	if got != ip {
+		t.Fatalf("got: %v, want: %v", got, ip)
 	}
+}
+
+func ExampleGetLocalIP() {
+	ip, err := comip.GetLocalIP()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(ip)
+	// 192.168.31.147
 }
