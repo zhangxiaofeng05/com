@@ -30,6 +30,7 @@ all_test:
 	go test -count=1 -bench=. -v ./...
 
 ## all_generate: run all go generate
+all_generate:
 	go generate ./...
 
 ## mod_tidy: go mod tidy
