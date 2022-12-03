@@ -9,3 +9,6 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/zhangxiaofeng05/com)
 
 common function
+
+# recommend read
+[Go by Example](https://gobyexample.com/)
