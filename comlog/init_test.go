@@ -12,3 +12,7 @@ func TestInit(t *testing.T) {
 	Init()
 	log.Println("use comlog")
 }
+
+func TestCheckError(t *testing.T) {
+	CheckError(nil)
+}
