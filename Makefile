@@ -19,11 +19,11 @@ lint:
 
 ## test: run test. not cache
 test:
-	go test -count=1 -race -coverprofile=coverage.txt -covermode=atomic ./...
+	go test -count=1 -race -coverprofile=coverage.out -covermode=atomic ./...
 
 ## view_test: view test coverage
 view_test:
-	go tool cover -html=coverage.txt
+	go tool cover -html=coverage.out
 
 ## all_test: run all test(include bench). not cache
 all_test:
