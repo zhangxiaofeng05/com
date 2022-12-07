@@ -1,4 +1,4 @@
-// Package comlog provide log init
+// Package comlog provide function about log standard library
 package comlog
 
 import "log"
