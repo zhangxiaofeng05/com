@@ -1,14 +1,16 @@
 // recommend read: https://gobyexample.com/testing-and-benchmarking
-package stringer
+package stringer_test
 
 import (
 	"fmt"
 	"testing"
+
+	"github.com/zhangxiaofeng05/com/stringer"
 )
 
 func TestEnum_String(t *testing.T) {
 	var tests = []struct {
-		enum Enum
+		enum stringer.Enum
 		want string
 	}{
 		{1, "success"},
@@ -31,9 +33,9 @@ func TestEnum_String(t *testing.T) {
 
 func BenchmarkEnum_String(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		_ = Enum(1).String()
-		_ = Enum(2).String()
-		_ = Enum(3).String()
+		_ = stringer.Enum(1).String()
+		_ = stringer.Enum(2).String()
+		_ = stringer.Enum(3).String()
 	}
 }
 
@@ -51,7 +53,7 @@ func TestGetMessageByCode(t *testing.T) {
 	for _, tt := range tests {
 		testname := fmt.Sprintf("enum:%d", tt.enum)
 		t.Run(testname, func(t *testing.T) {
-			ans := GetMessageByCode(tt.enum)
+			ans := stringer.GetMessageByCode(tt.enum)
 			if ans != tt.want {
 				t.Errorf("got %s, want %s", ans, tt.want)
 			}
@@ -62,8 +64,8 @@ func TestGetMessageByCode(t *testing.T) {
 
 func BenchmarkGetMessage(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		_ = GetMessageByCode(1)
-		_ = GetMessageByCode(2)
-		_ = GetMessageByCode(3)
+		_ = stringer.GetMessageByCode(1)
+		_ = stringer.GetMessageByCode(2)
+		_ = stringer.GetMessageByCode(3)
 	}
 }
