@@ -27,7 +27,7 @@ type EchoIp struct {
 	UserAgent  map[string]string `json:"user_agent"`
 }
 
-// IfConfigJson http://ifconfig.co/json
+// IfConfigJson https://ifconfig.co/json
 func IfConfigJson(ctx context.Context) (*EchoIp, error) {
 	url := fmt.Sprintf("%s/json", IfConfigCoUrl)
 	var res EchoIp
@@ -38,7 +38,7 @@ func IfConfigJson(ctx context.Context) (*EchoIp, error) {
 	return &res, nil
 }
 
-// IfConfigIp http://ifconfig.co/ip
+// IfConfigIp https://ifconfig.co/ip
 func IfConfigIp(ctx context.Context) (string, error) {
 	url := fmt.Sprintf("%s/ip", IfConfigCoUrl)
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)

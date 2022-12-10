@@ -19,7 +19,7 @@ lint:
 
 ## test: run test. not cache
 test:
-	go test -count=1 -race -coverprofile=coverage.out -covermode=atomic ./...
+	go test -count=1 -race -coverprofile=coverage.out -covermode=atomic -v ./...
 
 ## view_test: view test coverage
 view_test:
