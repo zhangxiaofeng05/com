@@ -12,21 +12,17 @@ func TestIfConfigJson(t *testing.T) {
 	t.Run("test json", func(t *testing.T) {
 		echoIp, err := echoip.IfConfigJson(context.Background())
 		if err != nil {
-			t.Log("ignore IfConfigJson method err")
-			return
+			t.Fatal(err)
 		}
 		if echoIp == nil {
-			t.Logf("TestIfConfigJson echoIp is nil")
-			return
+			t.Fatal("TestIfConfigJson echoIp is nil")
 		}
 		if echoIp.Ip == "" {
-			t.Logf("TestIfConfigJson ip is nil")
-			return
+			t.Fatal("TestIfConfigJson ip is nil")
 		}
 		marshalIndent, err := json.MarshalIndent(echoIp, "", " ")
 		if err != nil {
-			t.Logf("TestIfConfigJson MarshalIndent err: %v", err)
-			return
+			t.Fatalf("TestIfConfigJson MarshalIndent err: %v", err)
 		}
 		t.Logf("IfConfigJson res: %s", marshalIndent)
 	})
@@ -34,15 +30,18 @@ func TestIfConfigJson(t *testing.T) {
 
 func TestIfConfigIp(t *testing.T) {
 	t.Run("test ip", func(t *testing.T) {
-		ip, err := echoip.IfConfigIp(context.Background())
-		if err != nil || len(ip) > 15 {
-			t.Log("ignore IfConfigIp method err")
-			return
+		result, err := echoip.IfConfigIp(context.Background())
+		if err != nil {
+			t.Fatal(err)
 		}
-		if ip == "" {
+		if len(result) > 16 {
+			t.Log(len(result))
+			t.Fatal(result)
+		}
+		if result == "" {
 			t.Logf("TestIfConfigIp ip is nil")
 			return
 		}
-		t.Logf("ip: %s", ip)
+		t.Logf("ip: %s", result)
 	})
 }
