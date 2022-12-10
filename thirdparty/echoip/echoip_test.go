@@ -12,7 +12,7 @@ func TestIfConfigJson(t *testing.T) {
 	t.Run("test json", func(t *testing.T) {
 		echoIp, err := echoip.IfConfigJson(context.Background())
 		if err != nil {
-			t.Logf("TestIfConfigJson IfConfigJson err: %v", err)
+			t.Log("ignore IfConfigJson method err")
 			return
 		}
 		if echoIp == nil {
@@ -36,7 +36,7 @@ func TestIfConfigIp(t *testing.T) {
 	t.Run("test ip", func(t *testing.T) {
 		ip, err := echoip.IfConfigIp(context.Background())
 		if err != nil {
-			t.Logf("TestIfConfigJson IfConfigIp err: %v", err)
+			t.Log("ignore IfConfigIp method err")
 			return
 		}
 		if ip == "" {
