@@ -24,13 +24,13 @@ func GetLocalIP() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	addrs, err := net.LookupHost(hostname)
+	addrs, err := net.LookupIP(hostname)
 	if err != nil {
 		return "", err
 	}
 	for _, addr := range addrs {
-		if addr != "" {
-			return addr, nil
+		if ipv4 := addr.To4(); ipv4 != nil && ipv4.String() != "127.0.0.1" {
+			return ipv4.String(), nil
 		}
 	}
 	return "", nil
