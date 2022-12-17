@@ -1,4 +1,5 @@
 // Package echoip: https://github.com/mpolden/echoip
+// Deprecated: Use package ipsb instead.
 package echoip
 
 import (
@@ -28,6 +29,7 @@ type EchoIp struct {
 }
 
 // IfConfigJson https://ifconfig.co/json
+// Deprecated: Use ipsb.GeoIp instead.
 func IfConfigJson(ctx context.Context) (*EchoIp, error) {
 	url := fmt.Sprintf("%s/json", IfConfigCoUrl)
 	var res EchoIp
@@ -39,6 +41,7 @@ func IfConfigJson(ctx context.Context) (*EchoIp, error) {
 }
 
 // IfConfigIp https://ifconfig.co/ip
+// Deprecated: Use ipsb.JsonIp instead.
 func IfConfigIp(ctx context.Context) (string, error) {
 	url := fmt.Sprintf("%s/ip", IfConfigCoUrl)
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
