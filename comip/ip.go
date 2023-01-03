@@ -3,7 +3,6 @@ package comip
 
 import (
 	"net"
-	"os"
 )
 
 // GetOutboundIP need network
@@ -16,22 +15,4 @@ func GetOutboundIP() (net.IP, error) {
 	defer conn.Close()
 	localAddr := conn.LocalAddr().(*net.UDPAddr)
 	return localAddr.IP, nil
-}
-
-// GetLocalIP localhost ip.such as 192.168.31.147
-func GetLocalIP() (string, error) {
-	hostname, err := os.Hostname()
-	if err != nil {
-		return "", err
-	}
-	addrs, err := net.LookupIP(hostname)
-	if err != nil {
-		return "", err
-	}
-	for _, addr := range addrs {
-		if ipv4 := addr.To4(); ipv4 != nil && ipv4.String() != "127.0.0.1" {
-			return ipv4.String(), nil
-		}
-	}
-	return "", nil
 }
