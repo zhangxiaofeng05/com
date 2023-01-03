@@ -38,17 +38,26 @@ func TestUnmarshalAny(t *testing.T) {
 	var p P
 	t.Run("case map", func(t *testing.T) {
 		m := map[string]any{"name": "jack", "age": 18}
-		comutil.UnmarshalAny(&p, m)
+		err := comutil.UnmarshalAny(&p, m)
+		if err != nil {
+			t.Fatal(err)
+		}
 		assert.Equal(t, P{"jack", 18}, p)
 	})
 
 	t.Run("case string", func(t *testing.T) {
-		comutil.UnmarshalAny(&p, `{"name":"jack","age":20}`)
+		err := comutil.UnmarshalAny(&p, `{"name":"jack","age":20}`)
+		if err != nil {
+			t.Fatal(err)
+		}
 		assert.Equal(t, P{"jack", 20}, p)
 	})
 
 	t.Run("case []byte", func(t *testing.T) {
-		comutil.UnmarshalAny(&p, []byte(`{"name":"jack","age":22}`))
+		err := comutil.UnmarshalAny(&p, []byte(`{"name":"jack","age":22}`))
+		if err != nil {
+			t.Fatal(err)
+		}
 		assert.Equal(t, P{"jack", 22}, p)
 	})
 }
