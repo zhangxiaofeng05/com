@@ -6,6 +6,12 @@ help: Makefile
 	@echo
 	@sed -n 's/^##//p' $< | column -t -s ':' |  sed -e 's/^/ /'
 
+## deps: get dependency
+deps:
+	@cp .hooks/* .git/hooks
+	go build ./...
+	go test ./...
+
 ## godoc: run godoc.
 # maybe you need install godoc. $ go install golang.org/x/tools/cmd/godoc@latest
 godoc:
