@@ -20,3 +20,7 @@ go get github.com/zhangxiaofeng05/com
 
 # recommend read
 [Go by Example](https://gobyexample.com/)
+
+# get help
+[![Telegram](https://img.shields.io/badge/-telegram-red?color=white&logo=telegram)](https://t.me/zhangxiaofeng05)
+
