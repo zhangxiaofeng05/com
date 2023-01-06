@@ -24,8 +24,7 @@ GREEN=$(tput setaf 2)
 
 #golangci-lint run --enable-all
 #golangci-lint run ./...
-make lint
-if [[ $? != 0 ]]; then
+if ! make lint; then
   printf "${RED}Linting failed! ${NORMAL}Please fix errors before committing.\n"
   exit 1
 else
