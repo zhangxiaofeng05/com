@@ -6,6 +6,8 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+// TODO add go-playground/validator
+
 func ParseConfig(path string, config any) error {
 	configBytes, err := ioutil.ReadFile(path)
 	if err != nil {
