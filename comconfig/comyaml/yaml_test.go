@@ -8,11 +8,11 @@ import (
 
 func TestParseConfig(t *testing.T) {
 	type Config struct {
-		A string `yaml:"a"`
+		A string `yaml:"a" validate:"required"`
 		B struct {
-			RenamedC int   `yaml:"c"`
-			D        []int `yaml:",flow"`
-		} `yaml:"b"`
+			RenamedC int   `yaml:"c" validate:"required"`
+			D        []int `yaml:",flow" validate:"required"`
+		} `yaml:"b" validate:"required"`
 	}
 
 	path := "testdata/test.yaml"
