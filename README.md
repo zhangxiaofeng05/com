@@ -21,7 +21,8 @@ go get github.com/zhangxiaofeng05/com
 ```
 
 # recommend read
-[Go by Example](https://gobyexample.com/)
+ - [Go by Example](https://gobyexample.com/)
+ - [google/styleguide](https://github.com/google/styleguide/tree/gh-pages/go)
 
 # get help
 [![Telegram](https://img.shields.io/badge/-telegram-red?color=white&logo=telegram)](https://t.me/zhangxiaofeng05)
