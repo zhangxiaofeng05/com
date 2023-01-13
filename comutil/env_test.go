@@ -5,8 +5,6 @@ import (
 	"os"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
-
 	"github.com/zhangxiaofeng05/com/comutil"
 )
 
@@ -31,8 +29,10 @@ func TestGetEnv(t *testing.T) {
 	for i, s := range list {
 		name := fmt.Sprintf("case %d", i)
 		t.Run(name, func(t *testing.T) {
-			value := comutil.GetEnv(s.key, "")
-			assert.Equal(t, s.exist, value != "", s)
+			got := comutil.GetEnv(s.key, "")
+			if (got != "") != s.exist {
+				t.Fatalf("get key:%v env wrong", s.key)
+			}
 		})
 	}
 }

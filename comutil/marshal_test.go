@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/google/go-cmp/cmp"
 
 	"github.com/zhangxiaofeng05/com/comutil"
 )
@@ -21,11 +21,13 @@ func TestMarshaToString(t *testing.T) {
 	for idx, test := range testCase {
 		name := fmt.Sprintf("case %d", idx)
 		t.Run(name, func(t *testing.T) {
-			val, err := comutil.MarshaToString(test.p)
+			got, err := comutil.MarshaToString(test.p)
 			if err != nil {
 				t.Fatal(err)
 			}
-			assert.Equal(t, test.want, val)
+			if got != test.want {
+				t.Fatalf("got: %v, want: %v", got, test.want)
+			}
 		})
 	}
 }
@@ -42,7 +44,9 @@ func TestUnmarshalAny(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		assert.Equal(t, P{"jack", 18}, p)
+		if diff := cmp.Diff(P{"jack", 18}, p); diff != "" {
+			t.Fatalf("(-want +got): \n%s", diff)
+		}
 	})
 
 	t.Run("case string", func(t *testing.T) {
@@ -50,7 +54,9 @@ func TestUnmarshalAny(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		assert.Equal(t, P{"jack", 20}, p)
+		if diff := cmp.Diff(P{"jack", 20}, p); diff != "" {
+			t.Fatalf("(-want +got): \n%s", diff)
+		}
 	})
 
 	t.Run("case []byte", func(t *testing.T) {
@@ -58,6 +64,8 @@ func TestUnmarshalAny(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		assert.Equal(t, P{"jack", 22}, p)
+		if diff := cmp.Diff(P{"jack", 22}, p); diff != "" {
+			t.Fatalf("(-want +got): \n%s", diff)
+		}
 	})
 }
