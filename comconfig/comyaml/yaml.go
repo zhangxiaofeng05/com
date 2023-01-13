@@ -13,7 +13,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-func ParseConfig(path string, config any) error {
+func Parse(path string, config any) error {
 	configBytes, err := ioutil.ReadFile(path)
 	if err != nil {
 		return err

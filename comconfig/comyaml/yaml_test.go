@@ -18,7 +18,7 @@ func TestParseConfig(t *testing.T) {
 	path := "testdata/test.yaml"
 	config := Config{}
 
-	err := comyaml.ParseConfig(path, &config)
+	err := comyaml.Parse(path, &config)
 	if err != nil {
 		t.Fatal(err)
 	}
