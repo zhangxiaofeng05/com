@@ -1,4 +1,4 @@
-package comip_test
+package comnet_test
 
 import (
 	"errors"
@@ -6,7 +6,7 @@ import (
 	"net"
 	"testing"
 
-	"github.com/zhangxiaofeng05/com/comip"
+	"github.com/zhangxiaofeng05/com/comnet"
 )
 
 // externalIP only ipv4
@@ -49,7 +49,7 @@ func externalIP() (string, error) {
 }
 
 func TestGetOutboundIP(t *testing.T) {
-	got, err := comip.GetOutboundIP()
+	got, err := comnet.GetOutboundIP()
 	if err != nil {
 		t.Fatalf("GetOutboundIP err:%v", err)
 	}
@@ -64,7 +64,7 @@ func TestGetOutboundIP(t *testing.T) {
 }
 
 func ExampleGetOutboundIP() {
-	ip, err := comip.GetOutboundIP()
+	ip, err := comnet.GetOutboundIP()
 	if err != nil {
 		panic(err)
 	}

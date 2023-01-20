@@ -1,5 +1,5 @@
-// Package comip provide function about ip
-package comip
+// Package comnet provide function about ip
+package comnet
 
 import (
 	"net"
