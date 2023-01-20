@@ -71,3 +71,11 @@ func ExampleGetOutboundIP() {
 	fmt.Println(ip.String())
 	// 192.168.31.147
 }
+
+func TestGetPhysicalAddress(t *testing.T) {
+	physicalAddress, err := comnet.GetPhysicalAddress()
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("physicalAddress: %v", physicalAddress)
+}

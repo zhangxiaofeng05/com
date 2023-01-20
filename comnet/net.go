@@ -2,6 +2,7 @@
 package comnet
 
 import (
+	"fmt"
 	"net"
 )
 
@@ -15,4 +16,19 @@ func GetOutboundIP() (net.IP, error) {
 	defer conn.Close()
 	localAddr := conn.LocalAddr().(*net.UDPAddr)
 	return localAddr.IP, nil
+}
+
+const (
+	En0 = "en0"
+)
+
+func GetPhysicalAddress() (string, error) {
+	inter, err := net.InterfaceByName(En0)
+	if err != nil {
+		return "", err
+	}
+	if inter == nil {
+		return "", fmt.Errorf("inter is nil")
+	}
+	return inter.HardwareAddr.String(), nil
 }
