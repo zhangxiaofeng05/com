@@ -9,8 +9,12 @@ import (
 )
 
 func TestGetEnv(t *testing.T) {
-	k := "Jack"
-	v := "JackSstValue"
+	const (
+		defaultValue = "defaultValue"
+		k            = "Jack"
+		v            = "JackSstValue"
+	)
+
 	err := os.Setenv(k, v)
 	if err != nil {
 		t.Fatal("set env fail")
@@ -19,18 +23,52 @@ func TestGetEnv(t *testing.T) {
 	if gv != v {
 		t.Fatal("get env fail")
 	}
-	list := []struct {
-		key   string
-		exist bool
+
+	tests := []struct {
+		key  string
+		want string
 	}{
-		{k, true},
-		{"JackNotExist", false},
+		{k, v},
+		{"JackNotExist", defaultValue},
 	}
-	for i, s := range list {
+	for i, s := range tests {
 		name := fmt.Sprintf("case %d", i)
 		t.Run(name, func(t *testing.T) {
-			got := comutil.GetEnv(s.key, "")
-			if (got != "") != s.exist {
+			got := comutil.GetEnv(s.key, defaultValue)
+			if got != s.want {
+				t.Fatalf("get key:%v env wrong", s.key)
+			}
+		})
+	}
+}
+
+func TestLookupEnv(t *testing.T) {
+	const (
+		defaultValue = "defaultValue"
+		k            = "Jack"
+		v            = "JackSstValue"
+	)
+
+	err := os.Setenv(k, v)
+	if err != nil {
+		t.Fatal("set env fail")
+	}
+	gv := os.Getenv(k)
+	if gv != v {
+		t.Fatal("get env fail")
+	}
+	var tests = []struct {
+		key  string
+		want string
+	}{
+		{k, v},
+		{"JackNotExist", defaultValue},
+	}
+	for i, s := range tests {
+		name := fmt.Sprintf("case %d", i)
+		t.Run(name, func(t *testing.T) {
+			got := comutil.LookupEnv(s.key, defaultValue)
+			if got != s.want {
 				t.Fatalf("get key:%v env wrong", s.key)
 			}
 		})
