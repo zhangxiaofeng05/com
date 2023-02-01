@@ -1,4 +1,4 @@
-// Package comnet provide function about ip
+// Package comnet provide function about net
 package comnet
 
 import (
