@@ -20,15 +20,12 @@ common function
 go get github.com/zhangxiaofeng05/com
 ```
 
-# recommend read
+# Recommend reading
  - [Go by Example](https://gobyexample.com/)
  - [Welcome To Golang By Example](https://golangbyexample.com/)
  - [google/styleguide](https://github.com/google/styleguide/tree/gh-pages/go)
  - [How-To-Ask-Questions-The-Smart-Way](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way)
 
-## others
-1. http://semver.org
-
-# get help
-[![Telegram](https://img.shields.io/badge/-telegram-red?color=white&logo=telegram)](https://t.me/zhangxiaofeng05)
+# Roadmap
+ * Version numbers adhere to [semantic versioning](http://semver.org).
 
