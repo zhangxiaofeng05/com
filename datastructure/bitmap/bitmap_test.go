@@ -1,8 +1,9 @@
 package bitmap_test
 
 import (
-	"github.com/zhangxiaofeng05/com/datastruct/bitmap"
 	"testing"
+
+	"github.com/zhangxiaofeng05/com/datastructure/bitmap"
 )
 
 func TestBitMap(t *testing.T) {
