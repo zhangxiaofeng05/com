@@ -8,9 +8,13 @@ help: Makefile
 
 ## deps: get dependency
 deps:
-	@cp .hooks/* .git/hooks
+	make git_hook
 	go build ./...
 	go test ./...
+
+# hook
+git_hook:
+	@cp .hooks/* .git/hooks
 
 ## godoc: run godoc.
 # maybe you need install godoc. $ go install golang.org/x/tools/cmd/godoc@latest
@@ -21,7 +25,8 @@ godoc:
 ## lint: run golangci-lint.
 # maybe you need install golangci-lint. $ go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 lint:
-	golangci-lint run ./...
+	@golangci-lint --version
+	@golangci-lint run ./...
 
 ## test: run test. not cache
 test:

@@ -1,17 +1,29 @@
 #!/bin/bash
 echo "Running pre-commit checks on your code..."
-STAGED_GO_FILES=$(git diff --cached --name-only | grep ".go$")
 
-if [[ "$STAGED_GO_FILES" = "" ]]; then
-  echo "nothing change, exit pre-commit..."
-  exit 0
+## this will retrieve all of the .go files that have been
+## changed since the last commit
+STAGED_GO_FILES=$(git diff --cached --name-only -- '*.go')
+
+## we can check to see if this is empty
+if [[ $STAGED_GO_FILES == "" ]]; then
+    echo "No Go Files to Update"
+## otherwise we can do stuff with these changed go files
+else
+    for file in $STAGED_GO_FILES; do
+        ## format our file
+        go fmt $file
+        ## add any potential changes from our formatting to the
+        ## commit
+        git add $file
+    done
 fi
 
 GOLANGCI_LINT=$GOPATH/bin/golangci-lint
 
 # Check for golangci-lint
 if [[ ! -x "$GOLANGCI_LINT" ]]; then
-  printf "\t\033[41mPlease install golangci-lint (go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest)"
+  printf "\t\033[41mPlease install golangci-lint ( https://golangci-lint.run/usage/install/#install-from-source )"
   exit 1
 fi
 
@@ -22,8 +34,7 @@ printf "${LIME_YELLOW}Running golangci-lint on all staged *.go files...${NORMAL}
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
 
-#golangci-lint run --enable-all
-#golangci-lint run ./...
+# use Makefile[ make lint ]
 if ! make lint; then
   printf "${RED}Linting failed! ${NORMAL}Please fix errors before committing.\n"
   exit 1
