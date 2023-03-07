@@ -11,7 +11,7 @@ func GetEnv(key, defaultValue string) string {
 	return value
 }
 
-//LookupEnv return default value if not get value
+// LookupEnv return default value if not get value
 func LookupEnv(key, defaultValue string) string {
 	value, exist := os.LookupEnv(key)
 	if exist {
