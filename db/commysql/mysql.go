@@ -1,7 +1,12 @@
 package commysql
 
 import (
+	"context"
+	"database/sql"
 	"fmt"
+	"time"
+
+	"github.com/jmoiron/sqlx"
 
 	"github.com/zhangxiaofeng05/com/comutil"
 )
@@ -14,9 +19,36 @@ const (
 
 func GetEnv() (halfDsn string) {
 	// DSN (Data Source Name) : https://github.com/go-sql-driver/mysql#dsn-data-source-name
-	dbUser := comutil.GetEnv("MYSQL_USER", "root")
-	dbPass := comutil.GetEnv("MYSQL_PASS", "test")
+	dbUser := comutil.GetEnv("MYSQL_USERNAME", "root")
+	dbPass := comutil.GetEnv("MYSQL_PASSWORD", "123456")
 	dbHost := comutil.GetEnv("MYSQL_HOST", "127.0.0.1")
-	dbPort := comutil.GetEnv("MYSQL_PORT", "3306")
+	dbPort := comutil.GetEnv("MYSQL_HOST_PORT", "3306")
 	return fmt.Sprintf("%s:%s@tcp(%s:%s)", dbUser, dbPass, dbHost, dbPort)
+}
+
+// StandardLibrary Standard library
+func StandardLibrary(dsn string) (sqlDB *sql.DB, err error) {
+	db, err := sql.Open(DriverName, dsn)
+	if err != nil {
+		return nil, err
+	}
+	ctx, cancelFunc := context.WithTimeout(context.Background(), time.Second*2)
+	defer cancelFunc()
+	if err = db.PingContext(ctx); err != nil {
+		return nil, err
+	}
+	return db, nil
+}
+
+func SqlxLibrary(dsn string) (sqlxDB *sqlx.DB, err error) {
+	db, err := sqlx.Open(DriverName, dsn)
+	if err != nil {
+		return nil, err
+	}
+	ctx, cancelFunc := context.WithTimeout(context.Background(), time.Second*2)
+	defer cancelFunc()
+	if err = db.PingContext(ctx); err != nil {
+		return nil, err
+	}
+	return db, nil
 }

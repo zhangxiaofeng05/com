@@ -7,6 +7,7 @@ require (
 	github.com/go-playground/universal-translator v0.18.0
 	github.com/go-playground/validator/v10 v10.11.1
 	github.com/google/go-cmp v0.5.9
+	github.com/jmoiron/sqlx v1.3.5
 	github.com/sirupsen/logrus v1.9.0
 	gopkg.in/yaml.v3 v3.0.1
 )
