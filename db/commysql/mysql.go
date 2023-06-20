@@ -4,6 +4,8 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 	"time"
 
 	"github.com/jmoiron/sqlx"
@@ -26,8 +28,8 @@ func GetEnv() (halfDsn string) {
 	return fmt.Sprintf("%s:%s@tcp(%s:%s)", dbUser, dbPass, dbHost, dbPort)
 }
 
-// StandardLibrary Standard library
-func StandardLibrary(dsn string) (sqlDB *sql.DB, err error) {
+// Sql Standard library
+func Sql(dsn string) (sqlDB *sql.DB, err error) {
 	db, err := sql.Open(DriverName, dsn)
 	if err != nil {
 		return nil, err
@@ -40,7 +42,7 @@ func StandardLibrary(dsn string) (sqlDB *sql.DB, err error) {
 	return db, nil
 }
 
-func SqlxLibrary(dsn string) (sqlxDB *sqlx.DB, err error) {
+func Sqlx(dsn string) (sqlxDB *sqlx.DB, err error) {
 	db, err := sqlx.Open(DriverName, dsn)
 	if err != nil {
 		return nil, err
@@ -51,4 +53,9 @@ func SqlxLibrary(dsn string) (sqlxDB *sqlx.DB, err error) {
 		return nil, err
 	}
 	return db, nil
+}
+
+func Gorm(dsn string) (gormDB *gorm.DB, err error) {
+	gormDB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	return gormDB, err
 }
