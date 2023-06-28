@@ -23,7 +23,7 @@ func Init() {
 				s := strings.Split(frame.Function, ".")
 				funcName := s[len(s)-1]
 				_, filename := path.Split(frame.File)
-				return fmt.Sprintf("%s()", funcName), fmt.Sprintf("%s:%d", filename, frame.Line)
+				return fmt.Sprintf("%s()", funcName), fmt.Sprintf(" %s:%d", filename, frame.Line)
 			},
 		},
 	)
