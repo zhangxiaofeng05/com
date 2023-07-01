@@ -14,6 +14,8 @@ func TestParseConfig(t *testing.T) {
 				RenamedC int   `yaml:"c" validate:"required"`
 				D        []int `yaml:",flow" validate:"required"`
 			} `yaml:"b" validate:"required"`
+			// no validate https://github.com/go-playground/validator/issues/714
+			E bool `yaml:"e"`
 		}
 
 		path := "testdata/test.yaml"
@@ -23,7 +25,7 @@ func TestParseConfig(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		t.Logf("s: %+v", config)
+		t.Logf("config: %+v", config)
 	})
 
 	//file not exist
