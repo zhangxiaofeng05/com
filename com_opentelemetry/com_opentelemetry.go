@@ -9,6 +9,7 @@ import (
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp"
+	stdout "go.opentelemetry.io/otel/exporters/stdout/stdouttrace"
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/sdk/resource"
 	tracesdk "go.opentelemetry.io/otel/sdk/trace"
@@ -45,6 +46,10 @@ const (
 	// http://localhost:14268/api/traces
 	// internal.span.format=jaeger
 	Jaeger
+
+	// Stdout Create stdout exporter to be able to retrieve
+	// 开发，测试
+	Stdout
 )
 
 func Init(opentelemetry *Opentelemetry) (cancel func(), err error) {
@@ -96,7 +101,14 @@ func tracerProvider(opentelemetry *Opentelemetry) (*tracesdk.TracerProvider, err
 		// Create the Jaeger exporter
 		exp, err = jaeger.New(jaeger.WithCollectorEndpoint(jaeger.WithEndpoint(opentelemetry.URI)))
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("creating Jaeger trace exporter: %w", err)
+		}
+	case Stdout:
+		// Create stdout exporter to be able to retrieve
+		// the collected spans.
+		exp, err = stdout.New(stdout.WithPrettyPrint())
+		if err != nil {
+			return nil, fmt.Errorf("creating Stdout trace exporter: %w", err)
 		}
 	default:
 		return nil, fmt.Errorf("collector must set")
