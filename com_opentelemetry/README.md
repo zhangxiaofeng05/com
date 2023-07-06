@@ -4,9 +4,10 @@ https://dev.to/aurelievache/learning-go-by-examples-part-10-instrument-your-go-a
 ## example
 https://github.com/zhangxiaofeng05/go-example/blob/main/opentelemetry/opentelemetry.go
 
-## jaeger ui
+## jaeger
 http://127.0.0.1:16686  
-https://www.jaegertracing.io/docs/1.46/getting-started/
+https://www.jaegertracing.io/docs/1.46/getting-started/  
+https://github.com/open-telemetry/opentelemetry-go
 
 ## opentelemetry-go-contrib
 OpenTelemetry-Go的扩展集合：https://github.com/open-telemetry/opentelemetry-go-contrib  

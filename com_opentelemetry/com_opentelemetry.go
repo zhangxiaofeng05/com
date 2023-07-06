@@ -8,6 +8,7 @@ import (
 	"go.opentelemetry.io/otel/exporters/jaeger"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
+	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp"
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/sdk/resource"
 	tracesdk "go.opentelemetry.io/otel/sdk/trace"
@@ -35,6 +36,11 @@ const (
 	// internal.span.format=proto
 	OtlpGrpc Collector = iota + 1
 
+	// OtlpHttp accept OpenTelemetry Protocol (OTLP) over HTTP
+	// localhost:4318
+	// internal.span.format=proto
+	OtlpHttp
+
 	// Jaeger accept jaeger.thrift directly from clients
 	// http://localhost:14268/api/traces
 	// internal.span.format=jaeger
@@ -61,13 +67,8 @@ func tracerProvider(opentelemetry *Opentelemetry) (*tracesdk.TracerProvider, err
 	var exp tracesdk.SpanExporter
 	var err error
 	switch opentelemetry.Collector {
-	case Jaeger:
-		// Create the Jaeger exporter
-		exp, err = jaeger.New(jaeger.WithCollectorEndpoint(jaeger.WithEndpoint(opentelemetry.URI)))
-		if err != nil {
-			return nil, err
-		}
 	case OtlpGrpc:
+		// Create the otlptracegrpc exporter
 		ctx := context.Background()
 		opts := []otlptracegrpc.Option{
 			otlptracegrpc.WithInsecure(),
@@ -76,6 +77,24 @@ func tracerProvider(opentelemetry *Opentelemetry) (*tracesdk.TracerProvider, err
 		}
 		client := otlptracegrpc.NewClient(opts...)
 		exp, err = otlptrace.New(ctx, client)
+		if err != nil {
+			return nil, fmt.Errorf("creating OTLP gRPC trace exporter: %w", err)
+		}
+	case OtlpHttp:
+		// Create the otlptracehttp exporter
+		ctx := context.Background()
+		opts := []otlptracehttp.Option{
+			otlptracehttp.WithInsecure(),
+			otlptracehttp.WithEndpoint(opentelemetry.URI),
+		}
+		client := otlptracehttp.NewClient(opts...)
+		exp, err = otlptrace.New(ctx, client)
+		if err != nil {
+			return nil, fmt.Errorf("creating OTLP HTTP trace exporter: %w", err)
+		}
+	case Jaeger:
+		// Create the Jaeger exporter
+		exp, err = jaeger.New(jaeger.WithCollectorEndpoint(jaeger.WithEndpoint(opentelemetry.URI)))
 		if err != nil {
 			return nil, err
 		}
