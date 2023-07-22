@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/zhangxiaofeng05/com/thirdparty/ip/ipsb"
+	"github.com/zhangxiaofeng05/com/third_party/ip/ipsb"
 )
 
 func TestJsonIp(t *testing.T) {
