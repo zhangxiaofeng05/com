@@ -1,5 +1,5 @@
-// Package comnet provide function about net
-package comnet
+// Package com_net provide function about net
+package com_net
 
 import (
 	"fmt"
