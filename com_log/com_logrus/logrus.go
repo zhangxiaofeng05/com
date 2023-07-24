@@ -1,4 +1,4 @@
-package comlogrus
+package com_logrus
 
 import (
 	"fmt"

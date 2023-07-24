@@ -1,5 +1,5 @@
-// Package comlog provide function about log standard library
-package comlog
+// Package com_log provide function about log standard library
+package com_log
 
 import "log"
 

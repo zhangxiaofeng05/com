@@ -1,16 +1,16 @@
-package comlog_test
+package com_log_test
 
 import (
 	"log"
 	"testing"
 
-	"github.com/zhangxiaofeng05/com/comlog"
+	"github.com/zhangxiaofeng05/com/com_log"
 )
 
 func TestInit(t *testing.T) {
 	log.Println("default log")
 	log.SetFlags(0)
 	log.Println("no flag")
-	comlog.Init()
-	log.Println("use comlog")
+	com_log.Init()
+	log.Println("use com_log")
 }
