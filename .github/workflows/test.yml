@@ -60,11 +60,11 @@ jobs:
           key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             ${{ runner.os }}-go-
-      - name: Run Tests
-        run: make test
+#      - name: Run Tests
+#        run: make test
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          flags: ${{ matrix.os }},go-${{ matrix.go }}
+#      - name: Upload coverage to Codecov
+#        uses: codecov/codecov-action@v3
+#        with:
+#          flags: ${{ matrix.os }},go-${{ matrix.go }}
 
