@@ -1,11 +1,10 @@
-package comutil_test
+package com_env_test
 
 import (
 	"fmt"
+	"github.com/zhangxiaofeng05/com/com_env"
 	"os"
 	"testing"
-
-	"github.com/zhangxiaofeng05/com/comutil"
 )
 
 func TestGetEnv(t *testing.T) {
@@ -34,7 +33,7 @@ func TestGetEnv(t *testing.T) {
 	for i, s := range tests {
 		name := fmt.Sprintf("case %d", i)
 		t.Run(name, func(t *testing.T) {
-			got := comutil.GetEnv(s.key, defaultValue)
+			got := com_env.GetEnv(s.key, defaultValue)
 			if got != s.want {
 				t.Fatalf("get key:%v env wrong", s.key)
 			}
@@ -67,7 +66,7 @@ func TestLookupEnv(t *testing.T) {
 	for i, s := range tests {
 		name := fmt.Sprintf("case %d", i)
 		t.Run(name, func(t *testing.T) {
-			got := comutil.LookupEnv(s.key, defaultValue)
+			got := com_env.LookupEnv(s.key, defaultValue)
 			if got != s.want {
 				t.Fatalf("get key:%v env wrong", s.key)
 			}

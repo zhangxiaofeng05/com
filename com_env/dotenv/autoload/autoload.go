@@ -1,9 +1,8 @@
 package autoload
 
 import (
+	"github.com/zhangxiaofeng05/com/com_env/dotenv"
 	"log"
-
-	"github.com/zhangxiaofeng05/com/comutil/dotenv"
 )
 
 // import _ "github.com/zhangxiaofeng05/com/comutil/dotenv/autoload"

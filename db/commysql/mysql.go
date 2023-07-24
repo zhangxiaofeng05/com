@@ -4,13 +4,12 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"github.com/zhangxiaofeng05/com/com_env"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"time"
 
 	"github.com/jmoiron/sqlx"
-
-	"github.com/zhangxiaofeng05/com/comutil"
 )
 
 const (
@@ -21,10 +20,10 @@ const (
 
 func GetEnv() (halfDsn string) {
 	// DSN (Data Source Name) : https://github.com/go-sql-driver/mysql#dsn-data-source-name
-	dbUser := comutil.GetEnv("MYSQL_USERNAME", "root")
-	dbPass := comutil.GetEnv("MYSQL_PASSWORD", "123456")
-	dbHost := comutil.GetEnv("MYSQL_HOST", "127.0.0.1")
-	dbPort := comutil.GetEnv("MYSQL_HOST_PORT", "3306")
+	dbUser := com_env.GetEnv("MYSQL_USERNAME", "root")
+	dbPass := com_env.GetEnv("MYSQL_PASSWORD", "123456")
+	dbHost := com_env.GetEnv("MYSQL_HOST", "127.0.0.1")
+	dbPort := com_env.GetEnv("MYSQL_HOST_PORT", "3306")
 	return fmt.Sprintf("%s:%s@tcp(%s:%s)", dbUser, dbPass, dbHost, dbPort)
 }
 
