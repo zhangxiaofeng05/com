@@ -1,9 +1,9 @@
-package comyaml_test
+package com_yaml_test
 
 import (
 	"testing"
 
-	"github.com/zhangxiaofeng05/com/comconfig/comyaml"
+	"github.com/zhangxiaofeng05/com/com_config/com_yaml"
 )
 
 func TestParseConfig(t *testing.T) {
@@ -21,7 +21,7 @@ func TestParseConfig(t *testing.T) {
 		path := "testdata/test.yaml"
 		config := Config{}
 
-		err := comyaml.Parse(path, &config)
+		err := com_yaml.Parse(path, &config)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -32,7 +32,7 @@ func TestParseConfig(t *testing.T) {
 	t.Run("file not exist", func(t *testing.T) {
 		path := "testdata/test_not_exist.yaml"
 		config := struct{}{}
-		err := comyaml.Parse(path, &config)
+		err := com_yaml.Parse(path, &config)
 		if err == nil {
 			t.Fatal("want err")
 		}
@@ -43,7 +43,7 @@ func TestParseConfig(t *testing.T) {
 		config := struct {
 			Name string `yaml:"name"`
 		}{}
-		err := comyaml.Parse(path, &config)
+		err := com_yaml.Parse(path, &config)
 		if err == nil {
 			t.Fatal("want err")
 		}
@@ -55,7 +55,7 @@ func TestParseConfig(t *testing.T) {
 			Name string `yaml:"name" validate:"required"`
 			Age  string `yaml:"age" validate:"required"`
 		}{}
-		err := comyaml.Parse(path, &config)
+		err := com_yaml.Parse(path, &config)
 		if err == nil {
 			t.Fatal("want err")
 		}

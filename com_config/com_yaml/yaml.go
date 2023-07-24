@@ -1,4 +1,4 @@
-package comyaml
+package com_yaml
 
 import (
 	"errors"
