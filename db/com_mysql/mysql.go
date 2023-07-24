@@ -1,4 +1,4 @@
-package commysql
+package com_mysql
 
 import (
 	"context"
