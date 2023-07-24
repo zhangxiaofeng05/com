@@ -1,6 +1,6 @@
 module github.com/zhangxiaofeng05/com
 
-go 1.18
+go 1.20
 
 require (
 	github.com/go-playground/locales v0.14.0

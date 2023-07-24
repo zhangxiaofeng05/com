@@ -5,7 +5,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/zhangxiaofeng05/com/comhttp"
+	"github.com/zhangxiaofeng05/com/com_http"
 )
 
 type JsonIpRes struct {
@@ -20,7 +20,7 @@ func JsonIp(ctx context.Context) (string, error) {
 	header := map[string]string{
 		"user-agent": "Mozilla",
 	}
-	err := comhttp.Get(ctx, url, header, &ip)
+	err := com_http.Get(ctx, url, header, &ip)
 	if err != nil {
 		return "", err
 	}
@@ -52,7 +52,7 @@ func GeoIp(ctx context.Context) (*GeoIpRes, error) {
 	header := map[string]string{
 		"user-agent": "Mozilla",
 	}
-	err := comhttp.Get(ctx, url, header, &geoIp)
+	err := com_http.Get(ctx, url, header, &geoIp)
 	if err != nil {
 		return nil, err
 	}

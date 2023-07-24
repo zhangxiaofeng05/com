@@ -1,4 +1,4 @@
-package comhttp
+package com_http
 
 import (
 	"bytes"
@@ -6,7 +6,7 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
@@ -55,7 +55,7 @@ func (c *Client) Get(ctx context.Context, url string, header map[string]string, 
 	if resp.StatusCode == http.StatusOK {
 		return json.NewDecoder(resp.Body).Decode(result)
 	}
-	errorBuf, _ := ioutil.ReadAll(resp.Body)
+	errorBuf, _ := io.ReadAll(resp.Body)
 	return fmt.Errorf("HTTP GET url:%s response status: %v, err:%v", url, resp.Status, errorBuf)
 }
 
@@ -80,6 +80,6 @@ func (c *Client) Post(ctx context.Context, url string, header map[string]string,
 		return json.NewDecoder(resp.Body).Decode(result)
 	}
 
-	errorBuf, _ := ioutil.ReadAll(resp.Body)
+	errorBuf, _ := io.ReadAll(resp.Body)
 	return fmt.Errorf("HTTP POST url:%s response status: %v, err:%v", url, resp.Status, errorBuf)
 }

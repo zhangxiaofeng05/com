@@ -1,4 +1,4 @@
-package comhttp
+package com_http
 
 import (
 	"bytes"

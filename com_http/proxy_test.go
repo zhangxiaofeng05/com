@@ -1,4 +1,4 @@
-package comhttp_test
+package com_http_test
 
 import (
 	"context"
@@ -6,13 +6,13 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/zhangxiaofeng05/com/comhttp"
+	"github.com/zhangxiaofeng05/com/com_http"
 )
 
 func ExampleNew() {
 	//proxyUrl := "http://127.0.0.1:1081"
 	proxyUrl := "socks5://127.0.0.1:1080"
-	client, err := comhttp.New(proxyUrl)
+	client, err := com_http.New(proxyUrl)
 	if err != nil {
 		panic(err)
 	}
@@ -26,7 +26,7 @@ func ExampleNew() {
 		Url     string            `json:"url"`
 	}
 	var res Result
-	err = client.Get(ctx, url, comhttp.DefaultHeader, &res)
+	err = client.Get(ctx, url, com_http.DefaultHeader, &res)
 	if err != nil {
 		panic(err)
 	}
