@@ -1,4 +1,4 @@
-package comutil_test
+package com_marshal_test
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 
-	"github.com/zhangxiaofeng05/com/comutil"
+	"github.com/zhangxiaofeng05/com/com_marshal"
 )
 
 func TestMarshaToString(t *testing.T) {
@@ -21,7 +21,7 @@ func TestMarshaToString(t *testing.T) {
 	for idx, test := range testCase {
 		name := fmt.Sprintf("case %d", idx)
 		t.Run(name, func(t *testing.T) {
-			got, err := comutil.MarshaToString(test.p)
+			got, err := com_marshal.MarshaToString(test.p)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -40,7 +40,7 @@ func TestUnmarshalAny(t *testing.T) {
 	var p P
 	t.Run("case map", func(t *testing.T) {
 		m := map[string]any{"name": "jack", "age": 18}
-		err := comutil.UnmarshalAny(&p, m)
+		err := com_marshal.UnmarshalAny(&p, m)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -50,7 +50,7 @@ func TestUnmarshalAny(t *testing.T) {
 	})
 
 	t.Run("case string", func(t *testing.T) {
-		err := comutil.UnmarshalAny(&p, `{"name":"jack","age":20}`)
+		err := com_marshal.UnmarshalAny(&p, `{"name":"jack","age":20}`)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -60,7 +60,7 @@ func TestUnmarshalAny(t *testing.T) {
 	})
 
 	t.Run("case []byte", func(t *testing.T) {
-		err := comutil.UnmarshalAny(&p, []byte(`{"name":"jack","age":22}`))
+		err := com_marshal.UnmarshalAny(&p, []byte(`{"name":"jack","age":22}`))
 		if err != nil {
 			t.Fatal(err)
 		}

@@ -1,4 +1,4 @@
-package comutil
+package com_marshal
 
 import "encoding/json"
 
