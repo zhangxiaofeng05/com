@@ -3,7 +3,7 @@ package com_yaml
 import (
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"os"
 	"strings"
 
 	"github.com/go-playground/locales/en"
@@ -14,7 +14,7 @@ import (
 )
 
 func Parse(path string, config any) error {
-	configBytes, err := ioutil.ReadFile(path)
+	configBytes, err := os.ReadFile(path)
 	if err != nil {
 		return err
 	}

@@ -14,3 +14,8 @@ func TestInit(t *testing.T) {
 	com_log.Init()
 	log.Println("use com_log")
 }
+
+func TestInitLogFile(t *testing.T) {
+	com_log.InitLogFile("test")
+	log.Println("test InitLogFile")
+}
