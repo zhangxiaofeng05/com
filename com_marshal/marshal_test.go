@@ -2,11 +2,9 @@ package com_marshal_test
 
 import (
 	"fmt"
-	"testing"
-
-	"github.com/google/go-cmp/cmp"
-
+	"github.com/zhangxiaofeng05/com/com_cmp"
 	"github.com/zhangxiaofeng05/com/com_marshal"
+	"testing"
 )
 
 func TestMarshaToString(t *testing.T) {
@@ -44,8 +42,10 @@ func TestUnmarshalAny(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		if diff := cmp.Diff(P{"jack", 18}, p); diff != "" {
-			t.Fatalf("(-want +got): \n%s", diff)
+		want := P{"jack", 18}
+		err = com_cmp.MustEqual(p, want)
+		if err != nil {
+			t.Fatal(err)
 		}
 	})
 
@@ -54,8 +54,10 @@ func TestUnmarshalAny(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		if diff := cmp.Diff(P{"jack", 20}, p); diff != "" {
-			t.Fatalf("(-want +got): \n%s", diff)
+		want := P{"jack", 20}
+		err = com_cmp.MustEqual(p, want)
+		if err != nil {
+			t.Fatal(err)
 		}
 	})
 
@@ -64,8 +66,10 @@ func TestUnmarshalAny(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		if diff := cmp.Diff(P{"jack", 22}, p); diff != "" {
-			t.Fatalf("(-want +got): \n%s", diff)
+		want := P{"jack", 22}
+		err = com_cmp.MustEqual(p, want)
+		if err != nil {
+			t.Fatal(err)
 		}
 	})
 }
