@@ -3,6 +3,7 @@ module github.com/zhangxiaofeng05/com
 go 1.20
 
 require (
+	github.com/davecgh/go-spew v1.1.1
 	github.com/go-playground/locales v0.14.0
 	github.com/go-playground/universal-translator v0.18.0
 	github.com/go-playground/validator/v10 v10.11.1
