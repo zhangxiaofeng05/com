@@ -14,7 +14,8 @@ func TestSpewPrintf(t *testing.T) {
 		Name: "gg",
 		Age:  18,
 	}
-	com_fmt.SpewPrintf("pp: %v,%v\n", pp, pp)
+	com_fmt.SpewPrintf("p1: %v, p2: %v\n", pp, pp)
+	com_fmt.SpewPrintf("pp: %v\n", pp)
 	com_fmt.SpewPrintf("pp: %+v\n", pp)
 	com_fmt.SpewPrintf("pp: %#v\n", pp)
 	com_fmt.SpewPrintf("pp: %#+v\n", pp)
