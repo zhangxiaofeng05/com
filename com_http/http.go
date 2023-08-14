@@ -23,7 +23,7 @@ func Get(ctx context.Context, url string, header map[string]string, result any) 
 		return err
 	}
 	defer resp.Body.Close()
-	if resp.StatusCode == http.StatusOK {
+	if resp.StatusCode >= http.StatusOK && resp.StatusCode <= http.StatusCreated {
 		return json.NewDecoder(resp.Body).Decode(result)
 	}
 	errorBuf, _ := io.ReadAll(resp.Body)
@@ -47,7 +47,7 @@ func Post(ctx context.Context, url string, header map[string]string, data []byte
 	}
 	defer resp.Body.Close()
 
-	if resp.StatusCode == http.StatusOK {
+	if resp.StatusCode >= http.StatusOK && resp.StatusCode <= http.StatusCreated {
 		return json.NewDecoder(resp.Body).Decode(result)
 	}
 
