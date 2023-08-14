@@ -27,7 +27,7 @@ func Get(ctx context.Context, url string, header map[string]string, result any) 
 		return json.NewDecoder(resp.Body).Decode(result)
 	}
 	errorBuf, _ := io.ReadAll(resp.Body)
-	return fmt.Errorf("HTTP GET url:%s response status: %v, err:%v", url, resp.Status, errorBuf)
+	return fmt.Errorf("HTTP GET url:%s response status: %v, err:%s", url, resp.Status, errorBuf)
 }
 
 // Post post method. return json data
@@ -52,5 +52,5 @@ func Post(ctx context.Context, url string, header map[string]string, data []byte
 	}
 
 	errorBuf, _ := io.ReadAll(resp.Body)
-	return fmt.Errorf("HTTP POST url:%s response status: %v, err:%v", url, resp.Status, errorBuf)
+	return fmt.Errorf("HTTP POST url:%s response status: %v, err:%s", url, resp.Status, errorBuf)
 }
