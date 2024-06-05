@@ -28,7 +28,7 @@ func New(proxyUrl string) (*Client, error) {
 	}
 	tr := &http.Transport{
 		Proxy:           http.ProxyURL(proxy),
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // nolint:gosec
 	}
 
 	client := &http.Client{

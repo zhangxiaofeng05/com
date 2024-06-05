@@ -10,5 +10,5 @@ var (
 )
 
 func init() {
-	Rand = rand.New(rand.NewSource(time.Now().Unix()))
+	Rand = rand.New(rand.NewSource(time.Now().Unix())) // nolint:gosec
 }

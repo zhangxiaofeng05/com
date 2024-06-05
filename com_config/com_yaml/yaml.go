@@ -41,16 +41,20 @@ func Parse(path string, config any) error {
 	if err != nil {
 
 		// translate all error at once
-		errs := err.(validator.ValidationErrors)
-		// returns a map with key = namespace & value = translated error
-		// NOTICE: 2 errors are returned and you'll see something surprising
-		// translations are i18n aware!!!!
-		// eg. '10 characters' vs '1 character'
-		var s strings.Builder
-		for ns, val := range errs.Translate(trans) {
-			s.WriteString(fmt.Sprintf("%s: %s\n", ns, val))
+		var errs validator.ValidationErrors
+		if errors.As(err, &errs) {
+			// returns a map with key = namespace & value = translated error
+			// NOTICE: 2 errors are returned and you'll see something surprising
+			// translations are i18n aware!!!!
+			// eg. '10 characters' vs '1 character'
+			var s strings.Builder
+			for ns, val := range errs.Translate(trans) {
+				s.WriteString(fmt.Sprintf("%s: %s\n", ns, val))
+			}
+			return errors.New(s.String())
+		} else {
+			return err
 		}
-		return errors.New(s.String())
 	}
 	return nil
 }
