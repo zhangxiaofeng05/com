@@ -2,9 +2,10 @@ package com_env_test
 
 import (
 	"fmt"
-	"github.com/zhangxiaofeng05/com/com_env"
 	"os"
 	"testing"
+
+	"github.com/zhangxiaofeng05/com/com_env"
 )
 
 func TestGetEnv(t *testing.T) {

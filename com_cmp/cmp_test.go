@@ -1,8 +1,9 @@
 package com_cmp_test
 
 import (
-	"github.com/zhangxiaofeng05/com/com_cmp"
 	"testing"
+
+	"github.com/zhangxiaofeng05/com/com_cmp"
 )
 
 func TestMustEqual(t *testing.T) {

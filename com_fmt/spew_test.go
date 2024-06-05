@@ -1,8 +1,9 @@
 package com_fmt_test
 
 import (
-	"github.com/zhangxiaofeng05/com/com_fmt"
 	"testing"
+
+	"github.com/zhangxiaofeng05/com/com_fmt"
 )
 
 func TestSpewPrintf(t *testing.T) {

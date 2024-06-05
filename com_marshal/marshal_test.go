@@ -2,9 +2,10 @@ package com_marshal_test
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/zhangxiaofeng05/com/com_cmp"
 	"github.com/zhangxiaofeng05/com/com_marshal"
-	"testing"
 )
 
 func TestMarshaToString(t *testing.T) {

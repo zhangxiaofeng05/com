@@ -2,6 +2,7 @@ package com_cmp
 
 import (
 	"errors"
+
 	"github.com/google/go-cmp/cmp"
 )
 

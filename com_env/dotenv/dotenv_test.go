@@ -2,9 +2,10 @@ package dotenv_test
 
 import (
 	"fmt"
-	"github.com/zhangxiaofeng05/com/com_env/dotenv"
 	"os"
 	"testing"
+
+	"github.com/zhangxiaofeng05/com/com_env/dotenv"
 )
 
 func TestLoad(t *testing.T) {

@@ -6,6 +6,14 @@ help: Makefile
 	@echo
 	@sed -n 's/^##//p' $< | column -t -s ':' |  sed -e 's/^/ /'
 
+## codegen: codegen
+# go install golang.org/x/tools/cmd/goimports@latest
+codegen:
+	go generate ./...
+	goimports -w . 
+	go fmt ./...
+	go mod tidy
+
 ## deps: get dependency
 deps:
 	make git_hook
