@@ -9,7 +9,6 @@ import (
 
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
-	"go.opentelemetry.io/otel/exporters/jaeger"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp"
@@ -42,11 +41,6 @@ const (
 	// localhost:4318
 	// internal.span.format=proto
 	OtlpHttp
-
-	// Jaeger accept jaeger.thrift directly from clients
-	// http://localhost:14268/api/traces
-	// internal.span.format=jaeger
-	Jaeger
 
 	// Stdout Create stdout exporter to be able to retrieve
 	// 开发，测试
@@ -97,12 +91,6 @@ func tracerProvider(opentelemetry *Opentelemetry) (*tracesdk.TracerProvider, err
 		exp, err = otlptrace.New(ctx, client)
 		if err != nil {
 			return nil, fmt.Errorf("creating OTLP HTTP trace exporter: %w", err)
-		}
-	case Jaeger:
-		// Create the Jaeger exporter
-		exp, err = jaeger.New(jaeger.WithCollectorEndpoint(jaeger.WithEndpoint(opentelemetry.URI)))
-		if err != nil {
-			return nil, fmt.Errorf("creating Jaeger trace exporter: %w", err)
 		}
 	case Stdout:
 		// Create stdout exporter to be able to retrieve
