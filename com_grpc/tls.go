@@ -11,7 +11,7 @@ func TLSServer(serverCertPath, serverKeyPath string) (credentials.TransportCrede
 	// Create tls based credential.
 	creds, err := credentials.NewServerTLSFromFile(serverCertPath, serverKeyPath)
 	if err != nil {
-		return nil, fmt.Errorf("failed to create credentials: %v", err)
+		return nil, fmt.Errorf("failed to create credentials: %w", err)
 	}
 	return creds, nil
 }
@@ -21,7 +21,7 @@ func TLSClient(caCertPath, serverName string) (credentials.TransportCredentials,
 	// Create tls based credential.
 	creds, err := credentials.NewClientTLSFromFile(caCertPath, serverName)
 	if err != nil {
-		return nil, fmt.Errorf("failed to load credentials: %v", err)
+		return nil, fmt.Errorf("failed to load credentials: %w", err)
 	}
 	return creds, nil
 }

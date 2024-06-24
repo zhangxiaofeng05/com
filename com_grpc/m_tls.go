@@ -14,19 +14,19 @@ import (
 func MTLSServer(serverCertPath, serverKeyPath, clientCaCertPath string) (credentials.TransportCredentials, error) {
 	cert, err := tls.LoadX509KeyPair(serverCertPath, serverKeyPath)
 	if err != nil {
-		return nil, fmt.Errorf("failed to load key pair: %s", err)
+		return nil, fmt.Errorf("failed to load key pair: %w", err)
 	}
 
 	ca := x509.NewCertPool()
 	caBytes, err := os.ReadFile(clientCaCertPath)
 	if err != nil {
-		return nil, fmt.Errorf("failed to read ca cert %q: %v", clientCaCertPath, err)
+		return nil, fmt.Errorf("failed to read ca cert %q: %w", clientCaCertPath, err)
 	}
 	if ok := ca.AppendCertsFromPEM(caBytes); !ok {
 		return nil, fmt.Errorf("failed to parse %q", clientCaCertPath)
 	}
 
-	tlsConfig := &tls.Config{
+	tlsConfig := &tls.Config{ // nolint:gosec
 		ClientAuth:   tls.RequireAndVerifyClientCert,
 		Certificates: []tls.Certificate{cert},
 		ClientCAs:    ca,
@@ -51,7 +51,7 @@ func MTLSClient(clientCertPath, clientKeyPath, caCertPath, serverName string) (c
 		log.Fatalf("failed to parse %q", caCertPath)
 	}
 
-	tlsConfig := &tls.Config{
+	tlsConfig := &tls.Config{ // nolint:gosec
 		ServerName:   serverName,
 		Certificates: []tls.Certificate{cert},
 		RootCAs:      ca,
