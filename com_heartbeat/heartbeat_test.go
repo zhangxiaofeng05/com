@@ -21,7 +21,7 @@ func TestHeartbeat(t *testing.T) {
 		expectedBody string
 	}{
 		{"case 1", "GET", endpoint, http.StatusOK, "pong"},
-		{"case 2", "HEAD", endpoint, http.StatusOK, "pong"},
+		{"case 2", "HEAD", endpoint, http.StatusNotFound, ""},
 		{"case 3", "POST", endpoint, http.StatusNotFound, ""},
 		{"case 4", "GET", "/other", http.StatusNotFound, ""},
 	}
