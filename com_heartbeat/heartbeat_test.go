@@ -9,30 +9,21 @@ import (
 	"github.com/zhangxiaofeng05/com/com_heartbeat"
 )
 
-func TestHeartbeat(t *testing.T) {
-	endpoint := "/ping"
-	handler := com_heartbeat.Heartbeat(endpoint)
+func TestHeartbeat2(t *testing.T) {
+	req := httptest.NewRequest("GET", "http://localhost:5000/ping", nil)
+	rr := httptest.NewRecorder()
 
-	tests := []struct {
-		name         string
-		method       string
-		path         string
-		expectedCode int
-		expectedBody string
-	}{
-		{"case 1", "GET", endpoint, http.StatusOK, "pong"},
-		{"case 2", "HEAD", endpoint, http.StatusNotFound, ""},
-		{"case 3", "POST", endpoint, http.StatusNotFound, ""},
-		{"case 4", "GET", "/other", http.StatusNotFound, ""},
-	}
+	// Call the Heartbeat handler
+	com_heartbeat.Heartbeat(rr, req)
 
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			req := httptest.NewRequest(tt.method, tt.path, nil)
-			rr := httptest.NewRecorder()
-			handler.ServeHTTP(rr, req)
-			require.Equal(t, tt.expectedCode, rr.Code)
-			require.Equal(t, tt.expectedBody, rr.Body.String())
-		})
-	}
+	// Check the status code
+	require.Equal(t, http.StatusOK, rr.Code)
+
+	// Check the Content-Type header
+	expectedContentType := "text/plain"
+	require.Equal(t, expectedContentType, rr.Header().Get("Content-Type"))
+
+	// Check the response body
+	expectedBody := "pong"
+	require.Equal(t, expectedBody, rr.Body.String())
 }
