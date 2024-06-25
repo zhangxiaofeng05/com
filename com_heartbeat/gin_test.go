@@ -10,25 +10,6 @@ import (
 	"github.com/zhangxiaofeng05/com/com_heartbeat"
 )
 
-func TestHttp(t *testing.T) {
-	req := httptest.NewRequest("GET", "http://localhost:5000/ping", nil)
-	rr := httptest.NewRecorder()
-
-	// Call the Heartbeat handler
-	com_heartbeat.Http(rr, req)
-
-	// Check the status code
-	require.Equal(t, http.StatusOK, rr.Code)
-
-	// Check the Content-Type header
-	expectedContentType := "text/plain"
-	require.Equal(t, expectedContentType, rr.Header().Get("Content-Type"))
-
-	// Check the response body
-	expectedBody := "pong"
-	require.Equal(t, expectedBody, rr.Body.String())
-}
-
 func TestGin(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 
@@ -58,7 +39,11 @@ func TestGin(t *testing.T) {
 
 			// 将 Gin 处理程序添加到路由中
 			relativePath := "/ping"
-			r.GET(relativePath, com_heartbeat.Gin(tt.abort))
+			if tt.abort {
+				r.GET(relativePath, com_heartbeat.Gin(com_heartbeat.GinWithAbort()))
+			} else {
+				r.GET(relativePath, com_heartbeat.Gin())
+			}
 
 			// 创建一个新的 HTTP 请求
 			req, _ := http.NewRequest(http.MethodGet, relativePath, nil)
