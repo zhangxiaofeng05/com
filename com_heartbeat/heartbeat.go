@@ -14,5 +14,6 @@ func Heartbeat(endpoint string) http.HandlerFunc {
 			_, _ = w.Write([]byte("pong"))
 			return
 		}
+		w.WriteHeader(http.StatusNotFound)
 	}
 }
