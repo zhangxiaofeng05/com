@@ -11,7 +11,7 @@ func Heartbeat(endpoint string) http.HandlerFunc {
 		if (r.Method == "GET" || r.Method == "HEAD") && strings.EqualFold(r.URL.Path, endpoint) {
 			w.Header().Set("Content-Type", "text/plain")
 			w.WriteHeader(http.StatusOK)
-			w.Write([]byte("pong"))
+			_, _ = w.Write([]byte("pong"))
 			return
 		}
 	}
