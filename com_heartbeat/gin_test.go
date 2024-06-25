@@ -40,9 +40,9 @@ func TestGin(t *testing.T) {
 			// 将 Gin 处理程序添加到路由中
 			relativePath := "/ping"
 			if tt.abort {
-				r.GET(relativePath, com_heartbeat.Gin(com_heartbeat.GinWithAbort()))
+				r.GET(relativePath, com_heartbeat.Gin(com_heartbeat.GinWithAbort(), com_heartbeat.GinWithPath(relativePath)))
 			} else {
-				r.GET(relativePath, com_heartbeat.Gin())
+				r.GET(relativePath, com_heartbeat.Gin(com_heartbeat.GinWithPath(relativePath)))
 			}
 
 			// 创建一个新的 HTTP 请求
