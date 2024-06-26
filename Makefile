@@ -39,7 +39,11 @@ lint:
 ## test: run test. not cache
 test:
 	go test -count=1 -race -coverprofile=coverage.out -covermode=atomic \
-		$(shell go list ./... | grep -v -E "third_party|com_env|com_grpc")
+		$(shell go list ./... | grep -v -E "third_party|com_env|com_grpc|com_distribute_lock")
+
+## local_test: run all test. not cache
+local_test:
+	go test -count=1 -race -coverprofile=coverage.out -covermode=atomic ./...
 
 ## view_test: view test coverage
 view_test:
