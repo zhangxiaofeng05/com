@@ -46,39 +46,39 @@ type Redis struct {
 	delayFunc func() time.Duration
 }
 
-type Option func(*Redis)
+type RedisOption func(*Redis)
 
-func WithKey(key string) Option {
+func WithRedisKey(key string) RedisOption {
 	return func(r *Redis) {
 		r.key = key
 	}
 }
 
-func WithValue(value string) Option {
+func WithRedisValue(value string) RedisOption {
 	return func(r *Redis) {
 		r.value = value
 	}
 }
 
-func WithExpire(expire time.Duration) Option {
+func WithRedisExpire(expire time.Duration) RedisOption {
 	return func(r *Redis) {
 		r.expire = expire
 	}
 }
 
-func WithTries(tries int) Option {
+func WithRedisTries(tries int) RedisOption {
 	return func(r *Redis) {
 		r.tries = tries
 	}
 }
 
-func WithDelayFunc(f func() time.Duration) Option {
+func WithRedisDelayFunc(f func() time.Duration) RedisOption {
 	return func(r *Redis) {
 		r.delayFunc = f
 	}
 }
 
-func NewRedis(client *redis.Client, opts ...Option) *Redis {
+func NewRedis(client *redis.Client, opts ...RedisOption) *Redis {
 	r := &Redis{
 		client:    client,
 		key:       defaultKey,
@@ -94,7 +94,7 @@ func NewRedis(client *redis.Client, opts ...Option) *Redis {
 }
 
 // Lock 基于redis实现分布式锁
-// 如果获取不到锁，则返回 ErrFailed
+// 如果获取不到锁，则立即返回 ErrFailed
 func (r *Redis) Lock(ctx context.Context) error {
 	res := r.client.SetNX(ctx, r.key, r.value, r.expire)
 	if res.Err() != nil {
@@ -107,7 +107,7 @@ func (r *Redis) Lock(ctx context.Context) error {
 }
 
 // LockContext 基于redis实现分布式锁
-// 如果获取不到锁，重试获取锁，直到获取到锁或者超时
+// 获取锁失败会一直阻塞，直到获取到锁或获取锁超时
 func (r *Redis) LockContext(ctx context.Context) error {
 	var timer *time.Timer
 	for i := 0; i < r.tries; i++ {

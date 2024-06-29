@@ -12,7 +12,7 @@ import (
 	"github.com/zhangxiaofeng05/com/com_distribute_lock"
 )
 
-func getClient() *com_distribute_lock.Redis {
+func getRedisClient() *com_distribute_lock.Redis {
 	client := redis.NewClient(
 		&redis.Options{
 			Addr:     "localhost:6379", // Redis 服务器地址和端口
@@ -22,11 +22,11 @@ func getClient() *com_distribute_lock.Redis {
 	)
 	r := com_distribute_lock.NewRedis(
 		client,
-		com_distribute_lock.WithKey("test_key"),
-		com_distribute_lock.WithValue("test_value"),
-		com_distribute_lock.WithExpire(2*time.Second),
-		com_distribute_lock.WithTries(20),
-		com_distribute_lock.WithDelayFunc(func() time.Duration {
+		com_distribute_lock.WithRedisKey("test_key"),
+		com_distribute_lock.WithRedisValue("test_value"),
+		com_distribute_lock.WithRedisExpire(2*time.Second),
+		com_distribute_lock.WithRedisTries(20),
+		com_distribute_lock.WithRedisDelayFunc(func() time.Duration {
 			return 100 * time.Millisecond
 		}),
 	)
@@ -34,7 +34,7 @@ func getClient() *com_distribute_lock.Redis {
 }
 
 func TestRedis_Lock(t *testing.T) {
-	r := getClient()
+	r := getRedisClient()
 	ctx := context.Background()
 
 	// Test successful lock acquisition
@@ -54,7 +54,7 @@ func TestRedis_Lock(t *testing.T) {
 }
 
 func TestRedis_LockContext(t *testing.T) {
-	r := getClient()
+	r := getRedisClient()
 	ctx := context.Background()
 
 	// Test successful lock acquisition
@@ -80,7 +80,7 @@ func TestRedis_LockContext(t *testing.T) {
 }
 
 func TestRedis_Lock_Retry(t *testing.T) {
-	r := getClient()
+	r := getRedisClient()
 	ctx := context.Background()
 
 	// Test lock acquisition with retries
@@ -101,7 +101,7 @@ func TestRedis_Lock_Retry(t *testing.T) {
 }
 
 func TestRedis_LockContextConcurrent(t *testing.T) {
-	r := getClient()
+	r := getRedisClient()
 	ctx := context.Background()
 
 	// Test concurrent lock acquisition
