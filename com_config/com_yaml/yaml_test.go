@@ -8,14 +8,21 @@ import (
 
 func TestParseConfig(t *testing.T) {
 	t.Run("pass", func(t *testing.T) {
+		type B struct {
+			RenamedC int   `yaml:"c" validate:"required"`
+			D        []int `yaml:",flow" validate:"required"`
+		}
 		type Config struct {
 			A string `yaml:"a" validate:"required"`
-			B struct {
-				RenamedC int   `yaml:"c" validate:"required"`
-				D        []int `yaml:",flow" validate:"required"`
-			} `yaml:"b" validate:"required"`
+			B B      `yaml:"b" validate:"required"`
 			// no validate https://github.com/go-playground/validator/issues/714
-			E bool `yaml:"e"`
+			E  bool `yaml:"e"`
+			FC int  `yaml:"f_c"`
+			FD struct {
+				RenamedC int            `yaml:"c" validate:"required"`
+				D        []int          `yaml:"d" validate:"required"`
+				Mp       map[string]int `yaml:"mp" validate:"required"`
+			} `yaml:"f_d" validate:"required"`
 		}
 
 		path := "testdata/test.yaml"

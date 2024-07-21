@@ -1,5 +1,11 @@
 a: Easy!
-b:
-  c: 2
+# 引用变量，参考文档: https://blog.csdn.net/qq_39361915/article/details/118754661
+b: &bVar
+  c: &bc 2  # 锚点用符号&定义，并用符号*进行引用
   d: [3, 4]
 e: false
+f_c: *bc # 引用锚点
+f_d:
+  <<: *bVar # 通过<<:将键值对一起引入
+  mp:
+    a: 1
