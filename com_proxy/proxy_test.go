@@ -1,9 +1,11 @@
-package com_proxy
+package com_proxy_test
 
 import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/zhangxiaofeng05/com/com_proxy"
 )
 
 func TestHttpClient(t *testing.T) {
@@ -18,7 +20,7 @@ func TestHttpClient(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		client, err := HttpClient(test.proxyStr)
+		client, err := com_proxy.HttpClient(test.proxyStr)
 		if test.expectErr && err == nil {
 			t.Errorf("expected an error for proxyStr: %s", test.proxyStr)
 		} else if !test.expectErr && err != nil {
