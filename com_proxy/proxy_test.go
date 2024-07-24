@@ -32,10 +32,7 @@ func TestHttpClient(t *testing.T) {
 			}))
 			defer ts.Close()
 
-			resp, err := client.Get(ts.URL)
-			if err != nil {
-				defer resp.Body.Close()
-			}
+			resp, err := client.Get(ts.URL) // nolint:bodyclose
 			if test.expectDial && err != nil {
 				t.Errorf("expected to dial successfully for proxyStr: %s, got: %v", test.proxyStr, err)
 			} else if !test.expectDial && err == nil {

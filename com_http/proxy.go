@@ -16,7 +16,6 @@ type Client struct {
 }
 
 // New get client
-// reference: https://gist.github.com/leafney/0beac92b784fae03c070b09983704c6f
 func New(proxyUrl string) (*Client, error) {
 	if proxyUrl == "" {
 		return &Client{http.DefaultClient}, nil
