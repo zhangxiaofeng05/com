@@ -3,12 +3,12 @@ package com_http
 import (
 	"bytes"
 	"context"
-	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
-	"net/url"
+
+	"github.com/zhangxiaofeng05/com/com_proxy"
 )
 
 type Client struct {
@@ -22,18 +22,9 @@ func New(proxyUrl string) (*Client, error) {
 		return &Client{http.DefaultClient}, nil
 	}
 	// socks5 or http
-	proxy, err := url.Parse(proxyUrl)
+	client, err := com_proxy.HttpClient(proxyUrl)
 	if err != nil {
 		return nil, err
-	}
-	tr := &http.Transport{
-		Proxy:           http.ProxyURL(proxy),
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // nolint:gosec
-	}
-
-	client := &http.Client{
-		Transport: tr,
-		//Timeout:   time.Second * 5,
 	}
 	return &Client{client}, nil
 }
