@@ -10,7 +10,7 @@ import (
 	ut "github.com/go-playground/universal-translator"
 	"github.com/go-playground/validator/v10"
 	en_translations "github.com/go-playground/validator/v10/translations/en"
-	"gopkg.in/yaml.v3"
+	"go.yaml.in/yaml/v3"
 )
 
 func Parse(path string, config any) error {
@@ -49,7 +49,7 @@ func Parse(path string, config any) error {
 			// eg. '10 characters' vs '1 character'
 			var s strings.Builder
 			for ns, val := range errs.Translate(trans) {
-				s.WriteString(fmt.Sprintf("%s: %s\n", ns, val))
+				fmt.Fprintf(&s, "%s: %s\n", ns, val)
 			}
 			return errors.New(s.String())
 		} else {

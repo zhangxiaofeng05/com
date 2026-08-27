@@ -10,7 +10,7 @@ import (
 )
 
 func TestHttp(t *testing.T) {
-	req := httptest.NewRequest("GET", "http://localhost:5000/ping", nil)
+	req := httptest.NewRequest(http.MethodGet, "http://localhost:5000/ping", nil)
 	rr := httptest.NewRecorder()
 
 	// Call the Heartbeat handler

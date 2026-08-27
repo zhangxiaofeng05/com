@@ -3,6 +3,7 @@ package com_mysql_test
 import (
 	"database/sql"
 	"fmt"
+	"log"
 	"testing"
 
 	"github.com/zhangxiaofeng05/com/db/com_mysql"
@@ -25,7 +26,11 @@ func ExampleGetEnv() {
 	if err != nil {
 		panic(err)
 	}
-	defer db.Close()
+	defer func() {
+		if err := db.Close(); err != nil {
+			log.Printf("mysql db.Close() err: %v", err)
+		}
+	}()
 	err = db.Ping()
 	if err != nil {
 		panic(err)

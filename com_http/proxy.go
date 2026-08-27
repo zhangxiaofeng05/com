@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 
 	"github.com/zhangxiaofeng05/com/com_proxy"
@@ -41,7 +42,11 @@ func (c *Client) Get(ctx context.Context, url string, header map[string]string, 
 	if err != nil {
 		return err
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if err := resp.Body.Close(); err != nil {
+			log.Printf("Get resp.Body.Close() err: %v", err)
+		}
+	}()
 	if resp.StatusCode == http.StatusOK {
 		return json.NewDecoder(resp.Body).Decode(result)
 	}
@@ -64,7 +69,11 @@ func (c *Client) Post(ctx context.Context, url string, header map[string]string,
 	if err != nil {
 		return err
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if err := resp.Body.Close(); err != nil {
+			log.Printf("Post resp.Body.Close() err: %v", err)
+		}
+	}()
 
 	if resp.StatusCode == http.StatusOK {
 		return json.NewDecoder(resp.Body).Decode(result)

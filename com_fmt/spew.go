@@ -1,7 +1,7 @@
 package com_fmt
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/davecgh/go-spew/spew"
 )
@@ -13,5 +13,5 @@ func SpewPrintf(format string, params ...any) {
 		formatter := spew.NewFormatter(p)
 		wrap = append(wrap, formatter)
 	}
-	fmt.Printf(format, wrap...)
+	log.Printf(format, wrap...)
 }

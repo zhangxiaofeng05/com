@@ -87,7 +87,9 @@ func TestRedis_Lock_Retry(t *testing.T) {
 	go func() {
 		time.Sleep(100 * time.Millisecond)
 		err := r.Unlock(ctx)
-		require.NoError(t, err, "expected unlock to succeed")
+		if err != nil {
+			panic("expected unlock to succeed")
+		}
 	}()
 
 	err := r.Lock(ctx)

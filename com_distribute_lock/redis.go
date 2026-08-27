@@ -31,7 +31,6 @@ var (
 
 var (
 	// 默认的随机延迟函数
-	// nolint:gosec
 	defaultDelayFunc = func() time.Duration {
 		return time.Duration(rand.Intn(maxRetryDelayMilliSec-minRetryDelayMilliSec)+minRetryDelayMilliSec) * time.Millisecond
 	}

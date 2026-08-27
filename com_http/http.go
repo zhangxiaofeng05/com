@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 )
 
@@ -22,7 +23,11 @@ func Get(ctx context.Context, url string, header map[string]string, result any) 
 	if err != nil {
 		return err
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if err := resp.Body.Close(); err != nil {
+			log.Printf("Get resp.Body.Close() err: %v", err)
+		}
+	}()
 	if resp.StatusCode >= http.StatusOK && resp.StatusCode <= http.StatusCreated {
 		return json.NewDecoder(resp.Body).Decode(result)
 	}
@@ -45,7 +50,11 @@ func Post(ctx context.Context, url string, header map[string]string, data []byte
 	if err != nil {
 		return err
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if err := resp.Body.Close(); err != nil {
+			log.Printf("Post resp.Body.Close() err: %v", err)
+		}
+	}()
 
 	if resp.StatusCode >= http.StatusOK && resp.StatusCode <= http.StatusCreated {
 		return json.NewDecoder(resp.Body).Decode(result)

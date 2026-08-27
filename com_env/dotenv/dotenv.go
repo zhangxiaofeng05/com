@@ -3,6 +3,7 @@ package dotenv
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"strings"
 )
@@ -15,7 +16,11 @@ func Load(dotenvPath string) error {
 	if err != nil {
 		return err
 	}
-	defer source.Close()
+	defer func() {
+		if err := source.Close(); err != nil {
+			log.Printf("Load source.Close() err: %v", err)
+		}
+	}()
 
 	mp := make(map[string]string)
 	scanner := bufio.NewScanner(source)
@@ -33,7 +38,10 @@ func Load(dotenvPath string) error {
 	}
 
 	for k, v := range mp {
-		os.Setenv(k, v)
+		err = os.Setenv(k, v)
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil

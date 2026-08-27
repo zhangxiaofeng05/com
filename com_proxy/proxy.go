@@ -35,7 +35,7 @@ func HttpClient(proxyStr string) (*http.Client, error) {
 		}
 		return &http.Client{
 			Transport: &http.Transport{
-				Dial: dialer.Dial,
+				Dial: dialer.Dial, //nolint:staticcheck
 			},
 		}, nil
 	} else {

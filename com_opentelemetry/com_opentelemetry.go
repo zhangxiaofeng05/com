@@ -2,6 +2,7 @@ package com_opentelemetry
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -100,7 +101,7 @@ func tracerProvider(opentelemetry *Opentelemetry) (*tracesdk.TracerProvider, err
 			return nil, fmt.Errorf("creating Stdout trace exporter: %w", err)
 		}
 	default:
-		return nil, fmt.Errorf("collector must set")
+		return nil, errors.New("collector must set")
 	}
 
 	tp := tracesdk.NewTracerProvider(

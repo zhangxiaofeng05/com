@@ -26,7 +26,7 @@ func MTLSServer(serverCertPath, serverKeyPath, clientCaCertPath string) (credent
 		return nil, fmt.Errorf("failed to parse %q", clientCaCertPath)
 	}
 
-	tlsConfig := &tls.Config{ // nolint:gosec
+	tlsConfig := &tls.Config{
 		ClientAuth:   tls.RequireAndVerifyClientCert,
 		Certificates: []tls.Certificate{cert},
 		ClientCAs:    ca,
@@ -51,7 +51,7 @@ func MTLSClient(clientCertPath, clientKeyPath, caCertPath, serverName string) (c
 		log.Fatalf("failed to parse %q", caCertPath)
 	}
 
-	tlsConfig := &tls.Config{ // nolint:gosec
+	tlsConfig := &tls.Config{
 		ServerName:   serverName,
 		Certificates: []tls.Certificate{cert},
 		RootCAs:      ca,

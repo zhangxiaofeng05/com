@@ -55,7 +55,7 @@ func TestRetry(t *testing.T) {
 		}
 		err := com_retry.Retry(ctx, operation, backoff)
 		require.Equal(t, context.DeadlineExceeded, err)
-		require.Equal(t, true, count < maxTimes)
+		require.Less(t, count, maxTimes)
 	})
 	t.Run("test max out", func(t *testing.T) {
 		maxTimes := 2

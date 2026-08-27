@@ -2,7 +2,8 @@
 package com_net
 
 import (
-	"fmt"
+	"errors"
+	"log"
 	"net"
 )
 
@@ -13,8 +14,15 @@ func GetOutboundIP() (net.IP, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer conn.Close()
-	localAddr := conn.LocalAddr().(*net.UDPAddr)
+	defer func() {
+		if err := conn.Close(); err != nil {
+			log.Printf("GetOutboundIP conn.Close() err: %v", err)
+		}
+	}()
+	localAddr, ok := conn.LocalAddr().(*net.UDPAddr)
+	if !ok {
+		return nil, errors.New("local addr is not udp addr")
+	}
 	return localAddr.IP, nil
 }
 
@@ -28,7 +36,7 @@ func GetPhysicalAddress() (string, error) {
 		return "", err
 	}
 	if inter == nil {
-		return "", fmt.Errorf("inter is nil")
+		return "", errors.New("inter is nil")
 	}
 	return inter.HardwareAddr.String(), nil
 }
