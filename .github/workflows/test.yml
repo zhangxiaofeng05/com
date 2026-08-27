@@ -30,7 +30,7 @@ jobs:
         # https://github.com/golangci/golangci-lint-action
         uses: golangci/golangci-lint-action@v9
         with:
-          version: v2.12
+          version: v2.13.1
           args: --verbose
 
   test:
@@ -70,11 +70,3 @@ jobs:
             ${{ runner.os }}-go-
       - name: Run Tests
         run: make test
-
-      #https://github.com/codecov/codecov-action
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v7
-        with:
-          flags: ${{ matrix.os }},go-${{ matrix.go }}
-          token: ${{ secrets.CODECOV_TOKEN }} # required
-

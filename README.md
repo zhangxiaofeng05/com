@@ -1,8 +1,6 @@
 # com
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com)
 [![CodeFactor](https://www.codefactor.io/repository/github/zhangxiaofeng05/com/badge)](https://www.codefactor.io/repository/github/zhangxiaofeng05/com)
-[![Go Report Card](https://goreportcard.com/badge/github.com/zhangxiaofeng05/com)](https://goreportcard.com/report/github.com/zhangxiaofeng05/com)
-[![codecov](https://codecov.io/gh/zhangxiaofeng05/com/branch/main/graph/badge.svg?token=VUTRUT9DU0)](https://codecov.io/gh/zhangxiaofeng05/com)
 
 ![test](https://github.com/zhangxiaofeng05/com/actions/workflows/test.yml/badge.svg?branch=main)
 ![license](https://img.shields.io/github/license/zhangxiaofeng05/com)
@@ -29,4 +27,3 @@ go get github.com/zhangxiaofeng05/com
 
 # Roadmap
  * Version numbers adhere to [semantic versioning](http://semver.org).
-
