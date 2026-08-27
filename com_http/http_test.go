@@ -21,7 +21,7 @@ func TestGet(t *testing.T) {
 			Url     string            `json:"url"`
 		}
 		var res Result
-		err := com_http.Get(ctx, url, com_http.DefaultHeader, &res)
+		err := com_http.Get(ctx, nil, url, com_http.DefaultHeader, &res)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -67,7 +67,7 @@ func TestPost(t *testing.T) {
 			Url     string            `json:"url"`
 		}
 		var res Result
-		err = com_http.Post(ctx, url, com_http.DefaultHeader, dataBytes, &res)
+		err = com_http.Post(ctx, nil, url, com_http.DefaultHeader, dataBytes, &res)
 		if err != nil {
 			t.Fatal(err)
 		}

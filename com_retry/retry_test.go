@@ -117,7 +117,7 @@ func ExampleRetry() {
 	url := "http://127.0.0.1:8080"
 	res := make(map[string]map[string]string)
 	operation := func() error {
-		err := com_http.Get(ctx, url, com_http.DefaultHeader, &res)
+		err := com_http.Get(ctx, nil, url, com_http.DefaultHeader, &res)
 		if err != nil {
 			return err
 		}

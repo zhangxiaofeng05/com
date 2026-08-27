@@ -3,6 +3,7 @@ package ipsb
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/zhangxiaofeng05/com/com_http"
 )
@@ -12,14 +13,13 @@ type JsonIpRes struct {
 }
 
 // JsonIp https://api.ip.sb/jsonip
-func JsonIp(ctx context.Context) (string, error) {
-	fullUrl := IpSbApiUrl + "/jsonip"
+func JsonIp(ctx context.Context, client *http.Client) (string, error) {
 	var ip JsonIpRes
 	// why: https://ip.sb/api/
 	header := map[string]string{
 		"user-agent": "Mozilla",
 	}
-	err := com_http.Get(ctx, fullUrl, header, &ip)
+	err := com_http.Get(ctx, client, IpSbApiUrlJsonIp, header, &ip)
 	if err != nil {
 		return "", err
 	}
@@ -45,13 +45,12 @@ type GeoIpRes struct {
 }
 
 // GeoIp https://api.ip.sb/geoip
-func GeoIp(ctx context.Context) (*GeoIpRes, error) {
-	fullUrl := IpSbApiUrl + "/geoip"
+func GeoIp(ctx context.Context, client *http.Client) (*GeoIpRes, error) {
 	var geoIp GeoIpRes
 	header := map[string]string{
 		"user-agent": "Mozilla",
 	}
-	err := com_http.Get(ctx, fullUrl, header, &geoIp)
+	err := com_http.Get(ctx, client, IpSbApiUrlGeoIp, header, &geoIp)
 	if err != nil {
 		return nil, err
 	}

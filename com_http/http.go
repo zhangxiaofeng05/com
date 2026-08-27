@@ -11,7 +11,7 @@ import (
 )
 
 // Get get method. return json data
-func Get(ctx context.Context, url string, header map[string]string, result any) error {
+func Get(ctx context.Context, client *http.Client, url string, header map[string]string, result any) error {
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
 		return err
@@ -19,7 +19,10 @@ func Get(ctx context.Context, url string, header map[string]string, result any) 
 	for k, v := range header {
 		req.Header.Add(k, v)
 	}
-	resp, err := http.DefaultClient.Do(req)
+	if client == nil {
+		client = http.DefaultClient
+	}
+	resp, err := client.Do(req)
 	if err != nil {
 		return err
 	}
@@ -36,7 +39,7 @@ func Get(ctx context.Context, url string, header map[string]string, result any) 
 }
 
 // Post post method. return json data
-func Post(ctx context.Context, url string, header map[string]string, data []byte, result any) error {
+func Post(ctx context.Context, client *http.Client, url string, header map[string]string, data []byte, result any) error {
 	body := bytes.NewBuffer(data)
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, body)
 	if err != nil {
@@ -46,7 +49,10 @@ func Post(ctx context.Context, url string, header map[string]string, data []byte
 		req.Header.Add(k, v)
 	}
 
-	resp, err := http.DefaultClient.Do(req)
+	if client == nil {
+		client = http.DefaultClient
+	}
+	resp, err := client.Do(req)
 	if err != nil {
 		return err
 	}
